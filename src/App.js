@@ -7,7 +7,14 @@ import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
+import { smurfFetch } from './actions/index'
+
 class App extends Component {
+  constructor(props) {
+    super(props);
+    smurfFetch();
+  }
+
   render() {
     return (
       <div className="App">

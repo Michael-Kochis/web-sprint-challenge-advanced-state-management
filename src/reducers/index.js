@@ -10,8 +10,6 @@ export const initialState = {
 const reducer = (state = initialState, action)=>{
     switch (action.type) {
         case (ADD_SMURF):
-            console.log("entering AddSmurf");
-            console.log(action.payload);
             return ({
                 ...state,
                 smurfs: [...state.smurfs, action.payload]

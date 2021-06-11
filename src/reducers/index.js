@@ -1,4 +1,4 @@
-import { ADD_SMURF, SMURF_FAIL, SMURF_FETCH, SMURF_SUCCESS } from '../actions/index'
+import { ADD_SMURF, SMURF_FAIL, SMURF_FETCH, SMURF_SUCCESS, TOGGLE_LOAD } from '../actions/index'
 
 
 export const initialState = {
@@ -10,13 +10,32 @@ export const initialState = {
 const reducer = (state = initialState, action)=>{
     switch (action.type) {
         case (ADD_SMURF):
-            return state;
+            console.log("entering AddSmurf");
+            console.log(action.payload);
+            return ({
+                ...state,
+                smurfs: [...state.smurfs, action.payload]
+            });
         case (SMURF_FETCH):
-            return state;
+            return ({
+                ...state,
+                isLoading: true
+            });
         case (SMURF_SUCCESS):
-            return state;
+            return ({
+                ...state,
+                isLoading: false
+            });
         case (SMURF_FAIL):
-            return state;
+            return ({
+                ...state,
+                error: action.payload
+            });
+        case (TOGGLE_LOAD):
+            return ({
+                ...state,
+                isLoading: !state.isLoading
+            });
         default:
             return state;
     }

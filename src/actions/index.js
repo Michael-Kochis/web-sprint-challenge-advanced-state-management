@@ -4,23 +4,36 @@ export const ADD_SMURF = "ADD_SMURF";
 export const SMURF_FETCH = "SMURF_FETCH";
 export const SMURF_SUCCESS = "SMURF_SUCCESS";
 export const SMURF_FAIL = "SMURF_FAIL";
+export const TOGGLE_LOAD = "TOGGLE_LOAD";
 
 const addSmurf= (smurf) => {
-    return (dispatch) => {
-
-    }
+    return({type: ADD_SMURF, payload: smurf})
 }
 
 const smurfFetch = () => {
-
+    return (dispatch) => {
+        dispatch(toggleLoad() ); 
+        axios.get("http://localhost:3333/smurfs")
+            .then((resp) => {
+                const list = resp.data;
+                list.forEach((item) => { 
+                    dispatch(addSmurf(item) )
+                });
+                dispatch(smurfSuccess() );
+            }).catch((error) => dispatch(smurfFail(error) ));
+    }
 }
 
 const smurfSuccess = () => {
-
+    return({type: SMURF_SUCCESS})
 }
 
 const smurfFail = (err) => {
+    return {type: SMURF_FAIL, payload: err}
+}
 
+const toggleLoad = () => {
+    return {type: TOGGLE_LOAD}
 }
 
 export {
